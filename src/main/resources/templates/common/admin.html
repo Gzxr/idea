@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div th:fragment="myadmin">
+        <div class="header">
+            <ul class="layui-nav layui-bg-green" lay-filter="">
+                <i class="layui-icon layui-icon-group" style="font-size: 20px; color: white;">教 学 系 统 管 理 员 端        </i>
+
+                <li class="layui-nav-item"><a href="/index">学员端</a></li>
+                <li class="layui-nav-item"><a href="">资料</a></li>
+                <li class="layui-nav-item"><a href="/indexregister" >注册</a></li>
+                <li class="layui-nav-item"><a href="/indexlogin" >登录</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">后台</a>
+                    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                        <dd><a href="">管理员登录</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">个人中心<span class="layui-badge-dot"></span></a>
+                </li>
+                <li class="layui-nav-item" style="float: right" th:if="${session.user==null}">未登录</li>
+                <li class="layui-nav-item" style="margin-right: 10px;float: right" th:if="${session.user!=null}">
+                    <img src="//t.cn/RCzsdCq" class="layui-nav-img">我
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">修改信息</a></dd>
+                        <dd><a href="javascript:;">注销</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+</div>
+</html>

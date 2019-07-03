@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oaec.teachingsystem.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.oaec.teachingsystem.domain.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="uname" jdbcType="VARCHAR" property="uname" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="headshot" jdbcType="VARCHAR" property="headshot"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="birthday" jdbcType="DATE" property="birthday" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="salt" jdbcType="VARCHAR" property="salt" />
+    </resultMap>
+
+    <select id="finAllUser" resultMap="UserResultMap">
+        SELECT * FROM t_user
+    </select>
+
+    <select id="findById" parameterType="long" resultType="User">
+        select * from t_user where id =#{id}
+    </select>
+
+    <select id="findUserByname" parameterType="string" resultMap="UserResultMap">
+        select * from t_user where uname = #{uname}
+    </select>
+
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(uname,password,sex,birthday,email,type,salt)
+         values(#{uname},#{password},#{sex},#{birthday},#{email},#{type},#{salt})
+    </insert>
+
+    <update id="update" parameterType="User">
+        update t_user set uname=#{uname},sex=#{sex},birthday=#{birthday},email=#{email} where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="long">
+        delete from t_user where id=#{id}
+    </delete>
+
+
+
+
+
+
+
+</mapper>

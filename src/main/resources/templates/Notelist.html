@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../static/layui/css/layui.css">
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js"></script>
+    <style>
+        .box{
+            margin:0 auto;
+            width: 1505px;
+        }
+        .header{
+            height: 65px;
+            width: 100%;
+            float: left;
+        }
+        .left{
+            width: 200px;
+            height: 80%;
+            float: left;
+        }
+        .right{
+            width: 1298px;
+            /*height: 700px;*/
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header" th:replace="common/User :: myheader" >
+
+    </div>
+
+    <div class="left">
+        <div th:replace="common/Left :: myLeft"></div>
+    </div>
+
+    <div class="right">
+        <p style="color: green;background-color: lemonchiffon;margin:0;padding:10px;" th:if="${message!=null}" th:text="${message}">信息提示</p>
+        <p style="color: red;background-color: lemonchiffon;margin:0;padding:10px;" th:if="${error!=null}" th:text="${error}">信息提示</p>
+        <table class="layui-table" lay-skin="line">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th ></th>
+                <th >发表时间</th>
+                <th >标题</th>
+                <th ></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note,noteStat:${list}">
+                <td th:text="${note.uname}">贤心</td>
+                <td th:text="${note.createtime}">2016-11-29</td>
+                <td th:text="${note.title}">人生就像是一场修行</td>
+                <td><a th:href="@{/note/see(id=${note.id})}" class="layui-btn" style="float: right"><i class="layui-icon layui-icon-search" style="font-size: 15px;"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="/note/adding" class="layui-btn" style="float: right"><i class="layui-icon layui-icon-edit" style="font-size: 15px;"></i>发表心得</a>
+    </div>
+</div>
+
+
+<script>
+    //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#date'//指定元素
+            ,theme: 'molv'
+        });
+    });
+
+
+</script>
+</body>
+</html>

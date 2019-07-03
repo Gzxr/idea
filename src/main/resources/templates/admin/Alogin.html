@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../static/layui/css/layui.css">
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js"></script>
+    <style>
+        .box{
+            margin:0 auto;
+            width: 1505px;
+        }
+        .header{
+            height: 65px;
+            width: 100%;
+            float: left;
+        }
+        .left{
+            width: 200px;
+            height: 80%;
+            float: left;
+        }
+        .right{
+            width: 1298px;
+            height: 700px;
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header" th:replace="common/admin :: myadmin" ></div>
+
+    <div class="left">
+
+    </div>
+    <div class="right">
+            <h1>欢迎管理员登录</h1>
+            <p style="color: green;background-color: lemonchiffon;margin:0;padding:10px;" th:if="${message!=null}" th:text="${message}">信息提示</p>
+            <p style="color: red;background-color: lemonchiffon;margin:0;padding:10px;" th:if="${error!=null}" th:text="${error}">信息提示</p>
+
+            <form class="layui-form layui-form-pane" action="/user/login" method="post" style="margin-left: 25%;margin-top: 10%;">
+                <label class="layui-form-label">账号</label>
+                <input type="text" name="uname" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input" style="width: 350px"><br>
+                <label class="layui-form-label">密码</label>
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" style="width: 350px">
+                <br><br>
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-anim-scaleSpring" lay-submit lay-filter="formDemo" onclick="window.parent.frames[1].location.reload()">登录</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </form>
+        </div>
+</div>
+
+<script>
+
+    //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#date'//指定元素
+            ,theme: 'molv'
+        });
+    });
+</script>
+</body>

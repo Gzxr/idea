@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oaec.teachingsystem.mapper.NotesonexperienceMapper">
+
+    <resultMap id="NotesonexperienceResultMap" type="com.oaec.teachingsystem.domain.Notesonexperience">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="user_id"/>
+        <result column="createtime" jdbcType="DATE" property="createtime"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="uname" jdbcType="VARCHAR" property="uname"/>
+        <result column="uheadshot" jdbcType="VARCHAR" property="uheadshot"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="NotesonexperienceResultMap">
+        select * from t_notesonexperience
+    </select>
+
+    <select id="findnoteByuserid" resultMap="NotesonexperienceResultMap" parameterType="long">
+        select * from t_notesonexperience where user_id = #{user_id}
+    </select>
+
+    <select id="findnoteByid" parameterType="long" resultType="Notesonexperience">
+        select * from t_notesonexperience where id = #{id}
+    </select>
+
+    <select id="findnoteByname" parameterType="String" resultMap="NotesonexperienceResultMap">
+        select * from t_notesonexperience where title like "%"#{title}"%"
+    </select>
+
+    <delete id="deletenotebyid" parameterType="long">
+        delete from t_notesonexperience where id = #{id}
+    </delete>
+
+    <update id="updataNote" parameterType="Notesonexperience">
+        update t_notesonexperience set title=#{title},content=#{content} where id = #{id}
+    </update>
+
+    <insert id="createNote" parameterType="Notesonexperience" useGeneratedKeys="true" keyProperty="id" >
+        insert into t_notesonexperience (user_id,createtime,title,content)
+         VALUES (#{user_id},#{createtime},#{title},#{content})
+    </insert>
+
+
+
+
+
+
+
+</mapper>

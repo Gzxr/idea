@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../../static/layui/css/layui.css">
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="../../static/layui/layui.js"></script>
+    <style>
+        .header{
+            height: 65px;
+            width: 100%;
+            float: left;
+        }
+        .box{
+            margin:0 auto;
+            width: 1500px;
+        }
+        .left{
+            width: 200px;
+            height: 80%;
+            float: left;
+        }
+        .right{
+            width: 1200px;
+            height: 700px;
+            float: left;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header" th:replace="/common/admin :: myadmin" >
+    </div>
+    <div class="left">
+        <div th:replace="/common/ALeft :: myALeft" ></div>
+    </div>
+
+    <div class="right" style="width: 500px;margin-left: 25%;margin-top: 10%;">
+        <p style="color: red;" th:if="${error!=null}" th:text="${error}">错误提示信息</p>
+        <p style="color: green;" th:if="${message!=null}" th:text="${message}">正确提示信息</p>
+        <form class="layui-form layui-form-pane" th:action="@{/admin/saveuser}" th:object="${user}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${user.id}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="uname" required  lay-verify="required" autocomplete="off" class="layui-input" th:value="${user.uname}">
+                </div>
+            </div>
+
+            <div class="layui-form-item" pane>
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="0" title="男" th:field="${user.sex}" checked>
+                    <input type="radio" name="sex" value="1" title="女" th:field="${user.sex}" >
+                </div>
+            </div>
+            <!--生日 日历插件-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sbirthday" class="layui-input" id="date" th:value="${user.birthday}">
+                </div>
+            </div>
+            <!--邮箱-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="email" required  lay-verify="required" th:value="*{email}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">修改</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script>
+    //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+
+            elem: '#date'//指定元素
+            ,theme: 'molv'
+        });
+    });
+</script>
+</body>
+</html>

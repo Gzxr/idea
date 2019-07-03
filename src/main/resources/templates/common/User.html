@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+        <div class="header" th:fragment="myheader">
+            <ul class="layui-nav layui-bg-green" lay-filter="">
+                <i class="layui-icon layui-icon-release" style="font-size: 20px; color: white;">教 学 系 统 学 员 端        </i>
+
+                <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-read" style="font-size: 15px;"></i> 资料</a></li>
+                <li class="layui-nav-item"><a href="/inregister"><i class="layui-icon layui-icon-add-circle" style="font-size: 15px;"></i> 注册</a></li>
+                <li class="layui-nav-item"><a href="/inlogin"><i class="layui-icon layui-icon-release" style="font-size: 15px;"></i> 登录</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">后台</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/admin/index">管理员端</a></dd><!-- 二级菜单 -->
+                        <dd><a href="">管理员登录</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">个人中心<span class="layui-badge-dot"></span></a>
+                </li>
+                <li class="layui-nav-item" style="float: right" th:if="${session.user==null}">未登录</li>
+                <li class="layui-nav-item" style="margin-right: 10px;float: right" th:if="${session.user!=null}">
+                    <img src="//t.cn/RCzsdCq" class="layui-nav-img"><td th:text="${session.user.uname}"></td>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">修改信息</a></dd>
+                        <dd><a href="javascript:;">注销</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+</html>

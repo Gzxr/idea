@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../static/layui/css/layui.css">
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js"></script>
+    <style>
+        .box{
+            margin:0 auto;
+            width: 1505px;
+        }
+        .header{
+            height: 65px;
+            width: 100%;
+            float: left;
+        }
+        .left{
+            width: 200px;
+            height: 80%;
+            float: left;
+        }
+        .right{
+            width: 1298px;
+            height: 700px;
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header" th:replace="common/User::myheader" >
+    </div>
+
+    <div class="left">
+        <div th:replace="common/Left::myLeft"></div>
+    </div>
+
+    <div class="right">
+        <div style="float: left;width: 1298px; border:1px solid #009E94;">
+            <div style="float: left; height:100%;width: 200px;border-right:1px solid #009E94;">
+                <div class="nh" style="float: left; margin-left:25%;width: 100px;height: 100px;border-radius: 50%;" >
+                    <img th:src="${note.user.headshot}" style="width: 100%;height:100%">
+                </div>
+                <div style="float: left;margin-left:25%;text-align:center; width: 100px;height: 100px;" >
+                    <p th:text="${note.user.uname}">昵称</p>
+                </div>
+            </div>
+
+            <div style="float: right;width: 1094px;height:100%;">
+                <div style="float: left;height: 50px;width:100%;text-align:center;">
+                    <p style="margin-top: 15px;" th:text="${note.title}">标题</p>
+                </div>
+                <div style="float: left;height:100%;width: 100%;">
+                    <p th:text="${note.content}"></p>
+                </div>
+                <div style="float: bottom;width: 100%;text-align: right;">
+                    <p style="color: #737383" th:text="${note.createtime}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="hr" style="float: left;width: 100%;height: 25px;">
+            <hr style="color: #0C0C0C;size: 5px;" >
+        </div>
+
+
+        <!--评论-->
+        <div class="pl" style="float:left;width:1298px;border:1px solid #009E94;margin-top: 5px" th:each="comment,noteStat:${note.commentList}">
+            <div style="width:200px;height:100%;float: left;border-right:1px solid #009E94">
+                <div class="nh" style="float: left;margin-left:25%; width: 100px;height: 100px;border-radius: 50%;" >
+                    <img th:src="${comment.user.headshot}" style="width: 100%;">
+                </div>
+                <div style="float: left; margin-left:25%;text-align:center;width: 100px;height: 50px;" >
+                    <p th:text="${comment.user.uname}">评论昵称</p>
+                </div>
+            </div>
+            <div style="float: left;width: 1094px;height: 100%;">
+                <div style="float: left;width:100%;margin-left: 5px;">
+                    <p th:text="${comment.content}">评论内容</p>
+                </div>
+                <div style="float: left;width:1094px;text-align: right;">
+                    <p style="color: #737383" th:text="${note.createtime}"></p>
+                </div>
+            </div>
+        </div>
+
+        <!--发表评论-->
+        <div style="float: right;width:1298px;margin-top: 50px;">
+            <div class="tx" style="float: left;border:1px solid #009E94;">
+                <div style="float: left;margin-left:25%; width: 100px;height: 100px;border-radius: 50%;">
+                    <img th:src="${session.user.headshot}">
+                </div>
+                <div style="float: left;margin-left:25%;text-align:center; width: 100px;height: 100px;" >
+                    <p th:text="${note.user.uname}">昵称</p>
+                </div>
+            </div>
+
+            <div style="float: left;width:1094px;height: 100%;border:1px solid #009E94;">
+                <form action="/note/comment" method="post">
+                    <input type="hidden" name="user_id" th:value="${session.user.id}">
+                    <input type="hidden" name="no_id" th:value="${note.id}">
+                    <textarea name="content" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    <div class="layui-form-item" >
+                        <div class="layui-input-block" style="float: right">
+                            <button class="layui-btn layui-btn-radius layui-btn-primary" lay-submit lay-filter="formDemo">评论</button>
+                            <button type="reset" class="layui-btn layui-btn-radius layui-btn-primary layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<script>
+    //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#date'//指定元素
+            ,theme: 'molv'
+        });
+    });
+</script>
+</body>
+</html>

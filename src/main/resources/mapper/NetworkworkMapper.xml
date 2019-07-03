@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oaec.teachingsystem.mapper.NetworkworkMapper">
+    <resultMap id="NetworkworkResultMap" type="com.oaec.teachingsystem.domain.Networkwork">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="createid" jdbcType="INTEGER" property="createid"/>
+        <result column="createtime" jdbcType="DATE" property="createtime"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="simtime" jdbcType="DATE" property="simtime"/>
+        <result column="simuid" jdbcType="INTEGER" property="simuid"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+    
+    <select id="findAllnetworkwork" resultMap="NetworkworkResultMap">
+        select * from t_networkwork
+    </select>
+    
+    <select id="findNetworkworkById" parameterType="long" resultType="Networkwork">
+        select * from t_networkwork where id = #{id}
+    </select>
+
+    <select id="findNetworkworkBycourseId" parameterType="long" resultMap="NetworkworkResultMap">
+        select * from t_networkwork where course_id = #{course_id}
+    </select>
+    
+    <insert id="createNetworkwork" parameterType="Networkwork" useGeneratedKeys="true" keyProperty="id">
+        insert into t_networkwork(createid,createtime,subject,course_id) values(#{createid},#{createtime},#{subject},#{course_id})
+    </insert>
+
+    <update id="updataNetworkwork" parameterType="Networkwork">
+        update t_networkwork set subject=#{subject},course_id=#{course_id} where id = #{id}
+    </update>
+
+    <delete id="deleteNetworkworkById" parameterType="long">
+        delete from t_networkwork where id = #{id}
+    </delete>
+
+
+</mapper>

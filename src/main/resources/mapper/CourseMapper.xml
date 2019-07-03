@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oaec.teachingsystem.mapper.CourseMapper">
+    <resultMap id="CourseResultMap" type="com.oaec.teachingsystem.domain.Course">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="cname" jdbcType="VARCHAR" property="cname"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+
+    <select id="findAllCourse" resultMap="CourseResultMap">
+        select * from t_course
+    </select>
+    
+    <select id="findCourseById" resultType="Course" parameterType="long">
+        select * from t_course where id = #{id}
+    </select>
+
+    <insert id="createCourse" parameterType="Course" useGeneratedKeys="true" keyProperty="id">
+        insert into t_course(cname,content) values(cname=#{cname},content=#{content})
+    </insert>
+
+    <update id="updateCourse" parameterType="Course">
+        update t_course set cname=#{cname},content=#{content} where id = #{id}
+    </update>
+
+    <delete id="deleteCourse" parameterType="long">
+        delete from t_course where id=#{id}
+    </delete>
+
+</mapper>
