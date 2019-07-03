@@ -15,6 +15,10 @@
         <result column="birthday" jdbcType="DATE" property="birthday" />
         <result column="type" jdbcType="INTEGER" property="type" />
         <result column="salt" jdbcType="VARCHAR" property="salt" />
+        <collection property="roles" ofType="com.oaec.teachingsystem.domain.Role" javaType="ArrayList">
+            <result property="role" column="score" jdbcType="INTEGER"/>
+
+        </collection>
     </resultMap>
 
     <select id="finAllUser" resultMap="UserResultMap">

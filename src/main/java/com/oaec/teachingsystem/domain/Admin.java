@@ -18,6 +18,9 @@ public class Admin {
     private String email;//邮箱
     private String salt;//盐
 
+    public Admin() {
+    }
+
     public Admin(String aname, String password, String sex, Date birthday, String email, String salt) {
         this.aname = aname;
         this.password = password;
